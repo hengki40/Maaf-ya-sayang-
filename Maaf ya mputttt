@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minta Maaf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec;
+            color: #880e4f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff0f6;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1;
+            position: relative;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        button {
+            background-color: #f06292;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ec407a;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: floatUp 2s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translate(0,0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0,-250px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Maaf 😔</h1>
+        <p>
+            Maaf ya kalau aku bikin kamu nggak nyaman sama perkataanku kemarin.  
+            Aku nggak bermaksud menyakiti perasaanmu.  
+            Aku sadar perkataanku bisa salah dan bikin kamu kecewa.  
+            Semoga kamu bisa memaafkanku, dan aku janji akan lebih berhati-hati kedepannya.  
+            Terima kasih sudah mau membaca dan memahami.
+        </p>
+        <button id="forgiveBtn">Memaafkan</button>
+    </div>
+
+    <script>
+        const button = document.getElementById('forgiveBtn');
+
+        function createHeart(x, y, size) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = '❤️';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            heart.style.fontSize = size + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        function explodeHearts() {
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const size = 15 + Math.random() * 25;
+                createHeart(x, y, size);
+            }
+        }
+
+        button.addEventListener('click', () => {
+            alert('Terima kasih sudah memaafkan! ❤️');
+
+            const moveListener = (e) => {
+                createHeart(e.clientX, e.clientY, 20 + Math.random() * 20);
+            };
+            document.addEventListener('mousemove', moveListener);
+
+            setTimeout(() => {
+                document.removeEventListener('mousemove', moveListener);
+                explodeHearts();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
